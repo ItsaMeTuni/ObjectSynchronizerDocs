@@ -15,3 +15,11 @@ extra_css:
 markdown_extensions:
   - admonition
   - codehilite
+
+pages:
+  - Getting started: 'index.md'
+  - Allowed types: 'Allowed-types.md'
+  - The SyncList: 'SyncList.md'
+  - Supporting your own types: 'supporting-your-own-types.md'
+  - Data optimization: 'Data-optimization.md'
+  - FAQ: 'FAQ.md'

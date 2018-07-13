@@ -1,7 +1,7 @@
 # Allowed types
 
 The types that the synchronizer is compatible with are:  
-- Any primitive types (int, string, float, byte, etc)  
+- Any primitive types (`int`, `string`, `float`, `byte`, etc)  
 - `GameObject` (must have a Photon View component)  
 - Any component that derives from Photon.MonoBehaviour and is in a Game Object that has a Photon View component  
 - `Vector3`, `Vector2` and `Quaternion`  
@@ -9,4 +9,4 @@ The types that the synchronizer is compatible with are:
 - `List<>` or an array of any of the other types allowed here **(not recommended for network bandwidth usage issues, use SyncList for an optimized way of syncing lists)**
 
 !!! note
-    Take a look at [Supporting your own types](Supporting-your-own-types.md) to know how you can have a custom class/struct work with the Object Synchronizer.
+    Take a look at [Supporting your own types](supporting-your-own-types.md) to know how you can have a custom class/struct work with the Object Synchronizer.
