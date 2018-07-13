@@ -221,6 +221,30 @@
 
 
   <li class="md-nav__item">
+    <a href="SyncList/" title="The SyncList" class="md-nav__link">
+      The SyncList
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="supporting-your-own-types/" title="Supporting your own types" class="md-nav__link">
+      Supporting your own types
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
     <a href="Data-optimization/" title="Data optimization" class="md-nav__link">
       Data optimization
     </a>
@@ -235,30 +259,6 @@
   <li class="md-nav__item">
     <a href="FAQ/" title="FAQ" class="md-nav__link">
       FAQ
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="Supporting-your-own-types/" title="Supporting your own types" class="md-nav__link">
-      Supporting your own types
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="SyncList/" title="SyncList" class="md-nav__link">
-      SyncList
     </a>
   </li>
 
@@ -299,7 +299,7 @@
 <li>Whenever you want to sync your GameObject call <code>gameObject.Sync()</code> on it.</li>
 </ol>
 <h1 id="how-it-works">How it works</h1>
-<p>When you call <code>gameObject.Sync()</code> the Object Synchronizer will search for fields in the components that are marked with the [Sync] attribute. It will then check which ones have changed from the last sync call and send only the changed ones. 
+<p>When you call <code>gameObject.Sync()</code> the Object Synchronizer will search for fields in the components that are marked with the <code>[Sync]</code> attribute. It will then check which ones have changed from the last sync call and send only the changed ones. 
 You can force to send all fields using <code>gameObject.Sync(true)</code>.
 You can also target a sync call to a specific player using <code>gameObject.Sync(photonPlayer)</code>.</p>
                 

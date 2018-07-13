@@ -32,6 +32,10 @@ Code block scrollbar
   text-align: left !important;
 }
 
+.md-typeset a {
+  color: #429aff !important;
+}
+
 /*
 Default text color
 and background color

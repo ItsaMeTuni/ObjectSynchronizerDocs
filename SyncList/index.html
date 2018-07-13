@@ -36,7 +36,7 @@
     
     
       
-        <title>The SyncList<> - Object Synchronizer for PUN</title>
+        <title>The SyncList - Object Synchronizer for PUN</title>
       
     
     
@@ -117,7 +117,7 @@
                 Object Synchronizer for PUN
               </span>
               <span class="md-header-nav__topic">
-                The SyncList<>
+                The SyncList
               </span>
             
           
@@ -210,6 +210,39 @@
       
       
 
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+    <a href="./" title="The SyncList" class="md-nav__link md-nav__link--active">
+      The SyncList
+    </a>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../supporting-your-own-types/" title="Supporting your own types" class="md-nav__link">
+      Supporting your own types
+    </a>
+  </li>
+
+    
+      
+      
+      
+
 
   <li class="md-nav__item">
     <a href="../Data-optimization/" title="Data optimization" class="md-nav__link">
@@ -227,39 +260,6 @@
     <a href="../FAQ/" title="FAQ" class="md-nav__link">
       FAQ
     </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="../Supporting-your-own-types/" title="Supporting your own types" class="md-nav__link">
-      Supporting your own types
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-  
-
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-    <a href="./" title="The SyncList<>" class="md-nav__link md-nav__link--active">
-      The SyncList<>
-    </a>
-    
   </li>
 
     
@@ -294,8 +294,8 @@
                 <h1 id="the-synclist">The SyncList&lt;&gt;</h1>
 <p>The <code>SyncList&lt;&gt;</code> is a type that derives from (and behaves like) a normal List. The difference is that it tracks every change you make to it (Add, Insert, Remove, etc) and when ObjectSynchronizer syncs it, instead of sending the entire List through the network it’ll only send the changes made to the List. This reduces (by a lot) network bandwidth usage when syncing big lists.<br />
 You can use it just like <code>[Sync] SyncList&lt;int&gt; mySyncList;</code> and it’ll behave exactly like a normal list. You can call Add, Remove, etc methods on it like any normal list. You can cast to a normal List from it (since it derives from List). </p>
-<p>If you want to change the list without logging changes use <code>((List&lt;int&gt;)mySyncList).Add</code>, for example. To access the change log of the list use <code>mySyncList.changeLog</code>.
-A <code>SyncList&lt;int&gt;</code> will not appear on the inspector because Unity does not serialize generic types. If you want it to show up in the inspector use <code>IntSyncList</code>, which is just a wrapper class for <code>SyncList&lt;int&gt;</code> (other wrappers for other types available, like <code>StringSyncList</code>, <code>BoolSyncList</code>, etc). If you want to make a wrapper for a custom type of yours take a look at <code>IntSyncList</code> class and <code>IntSyncListPropertyDrawer</code>. Just copy those and adjust their names and types to your needs.</p>
+<p>If you want to change the list without logging changes use <code>((List&lt;int&gt;)mySyncList).Add</code>, for example. To access the change log of the list use <code>mySyncList.changeLog</code>.  </p>
+<p>A <code>SyncList&lt;int&gt;</code> will not appear on the inspector because Unity does not serialize generic types. If you want it to show up in the inspector use <code>IntSyncList</code>, which is just a wrapper class for <code>SyncList&lt;int&gt;</code> (other wrappers for other types available, like <code>StringSyncList</code>, <code>BoolSyncList</code>, etc). If you want to make a wrapper for a custom type of yours take a look at <code>IntSyncList</code> class and <code>IntSyncListPropertyDrawer</code>. Just copy those and adjust their names and types to your needs.  </p>
                 
                   
                 
@@ -316,7 +316,7 @@ A <code>SyncList&lt;int&gt;</code> will not appear on the inspector because Unit
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../Supporting-your-own-types/" title="Supporting your own types" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../Allowed-types/" title="Allowed types" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -325,11 +325,25 @@ A <code>SyncList&lt;int&gt;</code> will not appear on the inspector because Unit
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Supporting your own types
+                Allowed types
               </span>
             </div>
           </a>
         
+        
+          <a href="../supporting-your-own-types/" title="Supporting your own types" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Supporting your own types
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
         
       </nav>
     </div>

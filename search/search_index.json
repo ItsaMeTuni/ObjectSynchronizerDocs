@@ -2,7 +2,7 @@
     "docs": [
         {
             "location": "/",
-            "text": "Getting started\n\n\nSetting up\n\n\n\n\nAdd an Object Synchronizer component to your Game Object.\n\n\nDrag and drop the components you want to synchronize to the Synchronized Components list.\n\n\nWhenever you want to sync your GameObject call \ngameObject.Sync()\n on it.\n\n\n\n\nHow it works\n\n\nWhen you call \ngameObject.Sync()\n the Object Synchronizer will search for fields in the components that are marked with the [Sync] attribute. It will then check which ones have changed from the last sync call and send only the changed ones. \nYou can force to send all fields using \ngameObject.Sync(true)\n.\nYou can also target a sync call to a specific player using \ngameObject.Sync(photonPlayer)\n.",
+            "text": "Getting started\n\n\nSetting up\n\n\n\n\nAdd an Object Synchronizer component to your Game Object.\n\n\nDrag and drop the components you want to synchronize to the Synchronized Components list.\n\n\nWhenever you want to sync your GameObject call \ngameObject.Sync()\n on it.\n\n\n\n\nHow it works\n\n\nWhen you call \ngameObject.Sync()\n the Object Synchronizer will search for fields in the components that are marked with the \n[Sync]\n attribute. It will then check which ones have changed from the last sync call and send only the changed ones. \nYou can force to send all fields using \ngameObject.Sync(true)\n.\nYou can also target a sync call to a specific player using \ngameObject.Sync(photonPlayer)\n.",
             "title": "Getting started"
         },
         {
@@ -17,18 +17,58 @@
         },
         {
             "location": "/#how-it-works",
-            "text": "When you call  gameObject.Sync()  the Object Synchronizer will search for fields in the components that are marked with the [Sync] attribute. It will then check which ones have changed from the last sync call and send only the changed ones. \nYou can force to send all fields using  gameObject.Sync(true) .\nYou can also target a sync call to a specific player using  gameObject.Sync(photonPlayer) .",
+            "text": "When you call  gameObject.Sync()  the Object Synchronizer will search for fields in the components that are marked with the  [Sync]  attribute. It will then check which ones have changed from the last sync call and send only the changed ones. \nYou can force to send all fields using  gameObject.Sync(true) .\nYou can also target a sync call to a specific player using  gameObject.Sync(photonPlayer) .",
             "title": "How it works"
         },
         {
             "location": "/Allowed-types/",
-            "text": "Allowed types\n\n\nThe types that the synchronizer is compatible with are:\n\n- Any primitive types (int, string, float, byte, etc)\n\n- \nGameObject\n (must have a Photon View component)\n\n- Any component that derives from Photon.MonoBehaviour and is in a Game Object that has a Photon View component\n\n- \nVector3\n, \nVector2\n and \nQuaternion\n\n- \nSyncList<>\n: a custom List class that works with the ObjectSynchronizer to improve network bandwidth usage. Learn more about it \nhere\n\n- \nList<>\n or an array of any of the other types allowed here \n(not recommended for network bandwidth usage issues, use SyncList for an optimized way of syncing lists)\n\n\n\n\nNote\n\n\nTake a look at \nSupporting your own types\n to know how you can have a custom class/struct work with the Object Synchronizer.",
+            "text": "Allowed types\n\n\nThe types that the synchronizer is compatible with are:\n\n- Any primitive types (\nint\n, \nstring\n, \nfloat\n, \nbyte\n, etc)\n\n- \nGameObject\n (must have a Photon View component)\n\n- Any component that derives from Photon.MonoBehaviour and is in a Game Object that has a Photon View component\n\n- \nVector3\n, \nVector2\n and \nQuaternion\n\n- \nSyncList<>\n: a custom List class that works with the ObjectSynchronizer to improve network bandwidth usage. Learn more about it \nhere\n\n- \nList<>\n or an array of any of the other types allowed here \n(not recommended for network bandwidth usage issues, use SyncList for an optimized way of syncing lists)\n\n\n\n\nNote\n\n\nTake a look at \nSupporting your own types\n to know how you can have a custom class/struct work with the Object Synchronizer.",
             "title": "Allowed types"
         },
         {
             "location": "/Allowed-types/#allowed-types",
-            "text": "The types that the synchronizer is compatible with are: \n- Any primitive types (int, string, float, byte, etc) \n-  GameObject  (must have a Photon View component) \n- Any component that derives from Photon.MonoBehaviour and is in a Game Object that has a Photon View component \n-  Vector3 ,  Vector2  and  Quaternion \n-  SyncList<> : a custom List class that works with the ObjectSynchronizer to improve network bandwidth usage. Learn more about it  here \n-  List<>  or an array of any of the other types allowed here  (not recommended for network bandwidth usage issues, use SyncList for an optimized way of syncing lists)   Note  Take a look at  Supporting your own types  to know how you can have a custom class/struct work with the Object Synchronizer.",
+            "text": "The types that the synchronizer is compatible with are: \n- Any primitive types ( int ,  string ,  float ,  byte , etc) \n-  GameObject  (must have a Photon View component) \n- Any component that derives from Photon.MonoBehaviour and is in a Game Object that has a Photon View component \n-  Vector3 ,  Vector2  and  Quaternion \n-  SyncList<> : a custom List class that works with the ObjectSynchronizer to improve network bandwidth usage. Learn more about it  here \n-  List<>  or an array of any of the other types allowed here  (not recommended for network bandwidth usage issues, use SyncList for an optimized way of syncing lists)   Note  Take a look at  Supporting your own types  to know how you can have a custom class/struct work with the Object Synchronizer.",
             "title": "Allowed types"
+        },
+        {
+            "location": "/SyncList/",
+            "text": "The SyncList<>\n\n\nThe \nSyncList<>\n is a type that derives from (and behaves like) a normal List. The difference is that it tracks every change you make to it (Add, Insert, Remove, etc) and when ObjectSynchronizer syncs it, instead of sending the entire List through the network it\u2019ll only send the changes made to the List. This reduces (by a lot) network bandwidth usage when syncing big lists.\n\nYou can use it just like \n[Sync] SyncList<int> mySyncList;\n and it\u2019ll behave exactly like a normal list. You can call Add, Remove, etc methods on it like any normal list. You can cast to a normal List from it (since it derives from List). \n\n\nIf you want to change the list without logging changes use \n((List<int>)mySyncList).Add\n, for example. To access the change log of the list use \nmySyncList.changeLog\n.  \n\n\nA \nSyncList<int>\n will not appear on the inspector because Unity does not serialize generic types. If you want it to show up in the inspector use \nIntSyncList\n, which is just a wrapper class for \nSyncList<int>\n (other wrappers for other types available, like \nStringSyncList\n, \nBoolSyncList\n, etc). If you want to make a wrapper for a custom type of yours take a look at \nIntSyncList\n class and \nIntSyncListPropertyDrawer\n. Just copy those and adjust their names and types to your needs.",
+            "title": "The SyncList"
+        },
+        {
+            "location": "/SyncList/#the-synclist",
+            "text": "The  SyncList<>  is a type that derives from (and behaves like) a normal List. The difference is that it tracks every change you make to it (Add, Insert, Remove, etc) and when ObjectSynchronizer syncs it, instead of sending the entire List through the network it\u2019ll only send the changes made to the List. This reduces (by a lot) network bandwidth usage when syncing big lists. \nYou can use it just like  [Sync] SyncList<int> mySyncList;  and it\u2019ll behave exactly like a normal list. You can call Add, Remove, etc methods on it like any normal list. You can cast to a normal List from it (since it derives from List).   If you want to change the list without logging changes use  ((List<int>)mySyncList).Add , for example. To access the change log of the list use  mySyncList.changeLog .    A  SyncList<int>  will not appear on the inspector because Unity does not serialize generic types. If you want it to show up in the inspector use  IntSyncList , which is just a wrapper class for  SyncList<int>  (other wrappers for other types available, like  StringSyncList ,  BoolSyncList , etc). If you want to make a wrapper for a custom type of yours take a look at  IntSyncList  class and  IntSyncListPropertyDrawer . Just copy those and adjust their names and types to your needs.",
+            "title": "The SyncList&lt;&gt;"
+        },
+        {
+            "location": "/supporting-your-own-types/",
+            "text": "Supporting your own types\n\n\nSerialization\n\n\nTo support a custom type (like a struct) you have to implement \nISerializable\n and add the \n[System.Serializable]\n attribute to it. Check how \nSyncInfo\n was made for an example.\nIf you have a type you can\u2019t modify the source of, create a class that implements \nISerializationSurrogate\n and add the \n[SyncSerializationSurrogate]\n attribute to it. Check \nVector3SerializationSurrogate\n for an example.\n\n\nValue preprocessing and postprocessing\n\n\nBefore serializing the values to send to the synchronization RPC, the ObjectSynchronizer applies what we call preprocessing, this allows us to send a different value over the network than the field value itself. This, for example, allows to send GameObject references over the network by sending its Network View ID.\nPostprocessing methods are the same as preprocessing methods, but in reverse. The ObjectSynchronizer sends the value received from the RPC to the postprocessor, so we can turn an int (Photon View ID) to a GameObject reference.\nYou can do the same for any type you wish, you just have to create a static class with the \n[SyncProcessingClass]\n and add the preprocessing and postprocessing methods you wish in it. \nThe methods have to have the following signatures, modifiers and attributes:\n\n\nPreprocessing\n\n\n[SyncPreProcess(typeof(myType))]\n\n\npublic\n \nstatic\n \nobject\n \nMyTypePreProcess\n(\nobject\n \n_val\n)\n\n\n\n\n\n\nPostprocessing\n\n\n[SyncPostProcess(typeof(myType))]\n\n\npublic\n \nstatic\n \nobject\n \nMyTypePostProcess\n(\nobject\n \n_val\n,\n \nSystem\n.\nType\n \n_expectedType\n,\n \nobject\n \n_currVal\n)",
+            "title": "Supporting your own types"
+        },
+        {
+            "location": "/supporting-your-own-types/#supporting-your-own-types",
+            "text": "",
+            "title": "Supporting your own types"
+        },
+        {
+            "location": "/supporting-your-own-types/#serialization",
+            "text": "To support a custom type (like a struct) you have to implement  ISerializable  and add the  [System.Serializable]  attribute to it. Check how  SyncInfo  was made for an example.\nIf you have a type you can\u2019t modify the source of, create a class that implements  ISerializationSurrogate  and add the  [SyncSerializationSurrogate]  attribute to it. Check  Vector3SerializationSurrogate  for an example.",
+            "title": "Serialization"
+        },
+        {
+            "location": "/supporting-your-own-types/#value-preprocessing-and-postprocessing",
+            "text": "Before serializing the values to send to the synchronization RPC, the ObjectSynchronizer applies what we call preprocessing, this allows us to send a different value over the network than the field value itself. This, for example, allows to send GameObject references over the network by sending its Network View ID.\nPostprocessing methods are the same as preprocessing methods, but in reverse. The ObjectSynchronizer sends the value received from the RPC to the postprocessor, so we can turn an int (Photon View ID) to a GameObject reference.\nYou can do the same for any type you wish, you just have to create a static class with the  [SyncProcessingClass]  and add the preprocessing and postprocessing methods you wish in it. \nThe methods have to have the following signatures, modifiers and attributes:",
+            "title": "Value preprocessing and postprocessing"
+        },
+        {
+            "location": "/supporting-your-own-types/#preprocessing",
+            "text": "[SyncPreProcess(typeof(myType))]  public   static   object   MyTypePreProcess ( object   _val )",
+            "title": "Preprocessing"
+        },
+        {
+            "location": "/supporting-your-own-types/#postprocessing",
+            "text": "[SyncPostProcess(typeof(myType))]  public   static   object   MyTypePostProcess ( object   _val ,   System . Type   _expectedType ,   object   _currVal )",
+            "title": "Postprocessing"
         },
         {
             "location": "/Data-optimization/",
@@ -54,46 +94,6 @@
             "location": "/FAQ/#does-the-objectsynchronizer-compress-data-before-sending-it",
             "text": "No, not yet. But that is a feature I plan to implement in the future.",
             "title": "Does the ObjectSynchronizer compress data before sending it?"
-        },
-        {
-            "location": "/Supporting-your-own-types/",
-            "text": "Supporting your own types\n\n\nSerialization\n\n\nTo support a custom type (like a struct) you have to implement \nISerializable\n and add the \n[System.Serializable]\n attribute to it. Check how \nSyncInfo\n was made for an example.\nIf you have a type you can\u2019t modify the source of, create a class that implements \nISerializationSurrogate\n and add the \n[SyncSerializationSurrogate]\n attribute to it. Check \nVector3SerializationSurrogate\n for an example.\n\n\nValue preprocessing and postprocessing\n\n\nBefore serializing the values to send to the synchronization RPC, the ObjectSynchronizer applies what we call preprocessing, this allows us to send a different value over the network than the field value itself. This, for example, allows to send GameObject references over the network by sending its Network View ID.\nPostprocessing methods are the same as preprocessing methods, but in reverse. The ObjectSynchronizer sends the value received from the RPC to the postprocessor, so we can turn an int (Photon View ID) to a GameObject reference.\nYou can do the same for any type you wish, you just have to create a static class with the \n[SyncProcessingClass]\n and add the preprocessing and postprocessing methods you wish in it. \nThe methods have to have the following signatures, modifiers and attributes:\n\n\nPreprocessing\n\n\n[SyncPreProcess(typeof(myType))]\n\n\npublic\n \nstatic\n \nobject\n \nMyTypePreProcess\n(\nobject\n \n_val\n)\n\n\n\n\n\n\nPostprocessing\n\n\n[SyncPostProcess(typeof(myType))]\n\n\npublic\n \nstatic\n \nobject\n \nMyTypePostProcess\n(\nobject\n \n_val\n,\n \nSystem\n.\nType\n \n_expectedType\n,\n \nobject\n \n_currVal\n)",
-            "title": "Supporting your own types"
-        },
-        {
-            "location": "/Supporting-your-own-types/#supporting-your-own-types",
-            "text": "",
-            "title": "Supporting your own types"
-        },
-        {
-            "location": "/Supporting-your-own-types/#serialization",
-            "text": "To support a custom type (like a struct) you have to implement  ISerializable  and add the  [System.Serializable]  attribute to it. Check how  SyncInfo  was made for an example.\nIf you have a type you can\u2019t modify the source of, create a class that implements  ISerializationSurrogate  and add the  [SyncSerializationSurrogate]  attribute to it. Check  Vector3SerializationSurrogate  for an example.",
-            "title": "Serialization"
-        },
-        {
-            "location": "/Supporting-your-own-types/#value-preprocessing-and-postprocessing",
-            "text": "Before serializing the values to send to the synchronization RPC, the ObjectSynchronizer applies what we call preprocessing, this allows us to send a different value over the network than the field value itself. This, for example, allows to send GameObject references over the network by sending its Network View ID.\nPostprocessing methods are the same as preprocessing methods, but in reverse. The ObjectSynchronizer sends the value received from the RPC to the postprocessor, so we can turn an int (Photon View ID) to a GameObject reference.\nYou can do the same for any type you wish, you just have to create a static class with the  [SyncProcessingClass]  and add the preprocessing and postprocessing methods you wish in it. \nThe methods have to have the following signatures, modifiers and attributes:",
-            "title": "Value preprocessing and postprocessing"
-        },
-        {
-            "location": "/Supporting-your-own-types/#preprocessing",
-            "text": "[SyncPreProcess(typeof(myType))]  public   static   object   MyTypePreProcess ( object   _val )",
-            "title": "Preprocessing"
-        },
-        {
-            "location": "/Supporting-your-own-types/#postprocessing",
-            "text": "[SyncPostProcess(typeof(myType))]  public   static   object   MyTypePostProcess ( object   _val ,   System . Type   _expectedType ,   object   _currVal )",
-            "title": "Postprocessing"
-        },
-        {
-            "location": "/SyncList/",
-            "text": "The SyncList<>\n\n\nThe \nSyncList<>\n is a type that derives from (and behaves like) a normal List. The difference is that it tracks every change you make to it (Add, Insert, Remove, etc) and when ObjectSynchronizer syncs it, instead of sending the entire List through the network it\u2019ll only send the changes made to the List. This reduces (by a lot) network bandwidth usage when syncing big lists.\n\nYou can use it just like \n[Sync] SyncList<int> mySyncList;\n and it\u2019ll behave exactly like a normal list. You can call Add, Remove, etc methods on it like any normal list. You can cast to a normal List from it (since it derives from List). \n\n\nIf you want to change the list without logging changes use \n((List<int>)mySyncList).Add\n, for example. To access the change log of the list use \nmySyncList.changeLog\n.\nA \nSyncList<int>\n will not appear on the inspector because Unity does not serialize generic types. If you want it to show up in the inspector use \nIntSyncList\n, which is just a wrapper class for \nSyncList<int>\n (other wrappers for other types available, like \nStringSyncList\n, \nBoolSyncList\n, etc). If you want to make a wrapper for a custom type of yours take a look at \nIntSyncList\n class and \nIntSyncListPropertyDrawer\n. Just copy those and adjust their names and types to your needs.",
-            "title": "The SyncList<>"
-        },
-        {
-            "location": "/SyncList/#the-synclist",
-            "text": "The  SyncList<>  is a type that derives from (and behaves like) a normal List. The difference is that it tracks every change you make to it (Add, Insert, Remove, etc) and when ObjectSynchronizer syncs it, instead of sending the entire List through the network it\u2019ll only send the changes made to the List. This reduces (by a lot) network bandwidth usage when syncing big lists. \nYou can use it just like  [Sync] SyncList<int> mySyncList;  and it\u2019ll behave exactly like a normal list. You can call Add, Remove, etc methods on it like any normal list. You can cast to a normal List from it (since it derives from List).   If you want to change the list without logging changes use  ((List<int>)mySyncList).Add , for example. To access the change log of the list use  mySyncList.changeLog .\nA  SyncList<int>  will not appear on the inspector because Unity does not serialize generic types. If you want it to show up in the inspector use  IntSyncList , which is just a wrapper class for  SyncList<int>  (other wrappers for other types available, like  StringSyncList ,  BoolSyncList , etc). If you want to make a wrapper for a custom type of yours take a look at  IntSyncList  class and  IntSyncListPropertyDrawer . Just copy those and adjust their names and types to your needs.",
-            "title": "The SyncList&lt;&gt;"
         }
     ]
 }
